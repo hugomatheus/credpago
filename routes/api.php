@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\UrlController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,15 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/auth/register', [RegisterController::class, 'create']);
     Route::post('/auth/token', [AuthController::class, 'auth']);
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::group(['prefix' => 'urls'], function () {
+            Route::post('/', [UrlController::class, 'create']);
+            Route::get('/', [UrlController::class, 'list']);
+            Route::get('/{uuid}', [UrlController::class, 'getByUuid']);
+        });
+    });
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

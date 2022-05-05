@@ -16,6 +16,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('command:url-cron')
+                 ->everyMinute()
+                 ->appendOutputTo(storage_path('logs/url_requests_cron.log'));
+
     }
 
     /**
