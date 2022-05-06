@@ -20,7 +20,7 @@ class UrlRepository implements IUrlRepository
 
     public function list()
     {
-        return $this->url->with('urlRequests')->paginate();
+        return $this->url->with('urlRequests')->get();
     }
 
     public function getAll()

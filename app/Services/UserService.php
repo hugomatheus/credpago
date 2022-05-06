@@ -30,6 +30,6 @@ class UserService
         }
 
         $token = $user->createToken($data['email'])->plainTextToken;
-        return response()->json(['token' => $token]);
+        return response()->json(['token' => $token, 'user' => $user]);
     }
 }
